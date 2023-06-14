@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
 
+import { TransactionsContext } from "../context/TransactionsContext";
 import { Loader } from './';
 
 const commonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-white";
@@ -22,9 +24,19 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 const Welcome = () => {
 
-  const connectWallet = () => {}
+  const { connectWallet, currentAccount, formData, sendTransactions, handleChange } = useContext(TransactionsContext);
 
-  const handleSubmit = () => {}
+  const handleSubmit = (e) => {
+    const { addressTo, amount, keyword, message } = formData;
+
+    e.preventDefault();
+
+    if(!addressTo || !amount || !keyword || !message) return;
+
+    sendTransactions();
+
+  }
+
   return (
     <div className="flex w-full justify-center items-center">
       <div className=" items-start flex flex-col mf:flex-row justify-between md:p-20 py-12 px-4">
@@ -35,13 +47,13 @@ const Welcome = () => {
           <p className="text-left mt-5 text-white font-light md:width-9/12 w-11/12 text-base">
             Explore the crypto world, Buy and Sell cryptocurrencies easily on KryptoNavas
           </p>
-          <button 
+          {!currentAccount &&(<button 
             type="button" 
             onClick={connectWallet}
             className="flex flex-row justify-center items-center my-5 bg-[#D8FF00] p-3 rounded-full text-slate-500 cursor-pointer hover:text-slate-400 hover:bg-[#c9eb0e]"
             >
               <p className="font-semibold">Connect Wallet</p>
-            </button>
+            </button>)}
 
             {/* CARDS */}
             <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
@@ -89,15 +101,15 @@ const Welcome = () => {
 
           {/* FORM */}          
           <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-            <Input placeholder="Address To" name='addressTo' type='text' handleChange={() => {}} />
-            <Input placeholder="Amount (ETH)" name='amount' type='number' handleChange={() => {}} />
-            <Input placeholder="Keyword (GIF)" name='keyword' type='text' handleChange={() => {}} />
-            <Input placeholder="Enter Message" name='message' type='text' handleChange={() => {}} />
+            <Input placeholder="Address To" name='addressTo' type='text' handleChange={handleChange} />
+            <Input placeholder="Amount (ETH)" name='amount' type='number' handleChange={handleChange} />
+            <Input placeholder="Keyword (GIF)" name='keyword' type='text' handleChange={handleChange} />
+            <Input placeholder="Enter Message" name='message' type='text' handleChange={handleChange} />
           
 
           <div className="h-[1px] w-full bg-gray-400 my-2" />
 
-          {true ? (
+          {false ? (
               <Loader />
           ) : (
             <button
