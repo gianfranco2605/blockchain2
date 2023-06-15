@@ -36,7 +36,7 @@ const Navbar = () => {
             <li className='text-xl w-full my-2'>
               <AiOutlineClose onClick={() => setToggleMenu(false)} />
             </li>
-            {["Market", "Exchange", "Tutorial", "Wallets"].map((item, index) => (
+            {["Mercato", "Scambio", "Tutorial", "Wallets"].map((item, index) => (
           <NavbarItem key={item + index} title={item} classProps='my-2 text-lg'/>
         ))}
           </ul>

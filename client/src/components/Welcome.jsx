@@ -25,7 +25,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 const Welcome = () => {
 
-  const { connectWallet, currentAccount, formData, sendTransactions, handleChange } = useContext(TransactionsContext);
+  const { connectWallet, currentAccount, formData, sendTransactions, handleChange, isLoading } = useContext(TransactionsContext);
 
   const handleSubmit = (e) => {
     const { addressTo, amount, keyword, message } = formData;
@@ -43,26 +43,26 @@ const Welcome = () => {
       <div className=" items-start flex flex-col mf:flex-row justify-between md:p-20 py-12 px-4">
         <div className="flex flex-1 justify-start flex-col mf:mr-10">
           <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
-            Send Crypto <br /> across the world 
+          Invia Crypto <br /> in tutto il mondo 
           </h1>
           <p className="text-left mt-5 text-white font-light md:width-9/12 w-11/12 text-base">
-            Explore the crypto world, Buy and Sell cryptocurrencies easily on KryptoNavas
+          Esplora il mondo delle criptovalute, acquista e vendi facilmente criptovalute su KryptoNavas
           </p>
           {!currentAccount &&(<button 
             type="button" 
             onClick={connectWallet}
             className="flex flex-row justify-center items-center my-5 bg-[#D8FF00] p-3 rounded-full text-slate-500 cursor-pointer hover:text-slate-400 hover:bg-[#c9eb0e]"
             >
-              <p className="font-semibold">Connect Wallet</p>
+              <p className="font-semibold">Collega Wallet</p>
             </button>)}
 
             {/* CARDS */}
             <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
               <div className={`md:rounded-tl-2xl ${commonStyles}`}>
-                Realiability
+              Affidabilità
               </div>
               <div className={commonStyles}>
-                Security
+              Sicurezza
                 </div>
               <div className={`md:rounded-tr-2xl ${commonStyles}`}>
                 Ethereum
@@ -71,7 +71,7 @@ const Welcome = () => {
                 Web 3.0
               </div>
               <div className={commonStyles}>
-                Low Fees
+              Commissioni basse
               </div>
               <div className={`md:rounded-br-2xl ${commonStyles}`}>
                 Blockchain
@@ -102,22 +102,22 @@ const Welcome = () => {
 
           {/* FORM */}          
           <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-            <Input placeholder="Address To" name='addressTo' type='text' handleChange={handleChange} />
-            <Input placeholder="Amount (ETH)" name='amount' type='number' handleChange={handleChange} />
-            <Input placeholder="Keyword (GIF)" name='keyword' type='text' handleChange={handleChange} />
-            <Input placeholder="Enter Message" name='message' type='text' handleChange={handleChange} />
+            <Input placeholder="Indirizzato a" name='addressTo' type='text' handleChange={handleChange} />
+            <Input placeholder="Importo (ETH)" name='amount' type='number' handleChange={handleChange} />
+            <Input placeholder="Parola Chiave (GIF)" name='keyword' type='text' handleChange={handleChange} />
+            <Input placeholder="Inserire messagio" name='message' type='text' handleChange={handleChange} />
           
 
           <div className="h-[1px] w-full bg-gray-400 my-2" />
 
-          {false ? (
+          {isLoading ? (
               <Loader />
           ) : (
             <button
               type="button"
               onClick={handleSubmit}
               className="text-white w-full mt-2 border-[1px] p-2 border-[9CA38F] rounded-full cursor-pointer"
-            >Send Now</button>
+            >Invia Ora</button>
           )}
 
 </div>
